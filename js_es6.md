@@ -97,7 +97,7 @@ obj = {
 };
 ```
 
-Yield in a generator
+Yield in a generator： calling a generator function doesn't execute its body immediately; an iterator object for the function is returned instead. Whenthe iterator's next() method is called, the generator function's body is executed until the first `yield` expression.
 ```ts
 function* idMaker() {
   var index = 0;
@@ -113,7 +113,7 @@ console.log(gen.next().value); // 2
 console.log(gen.next().value); // undefined
 ```
 
-Returen statement in a generator
+Returen statement in a generator: A return statement in a generator, when executed, will make the generator done.
 ```ts
 function* yieldAndReturn() {
   yield "Y";
@@ -125,4 +125,179 @@ var gen = yieldAndReturn()
 console.log(gen.next()); // { value: "Y", done: false }
 console.log(gen.next()); // { value: "R", done: true }
 console.log(gen.next()); // { value: undefined, done: true }
+```
+
+- Destructuring assignment
+
+array matching
+```ts
+var list = [1, 2, 3];
+var [a, , b] = list; //a=1, b=3
+[b, a] = [a, b]; //b=1, a=3
+```
+
+object/array matching
+```ts
+var obj = {a: 1};
+var list = [1];
+var {a, b=2} = obj; //a=1, b=2
+var [x, y=2] = list; //x=1, y=2
+```
+
+Fail-Soft Destructuring: optionally with defaults
+```ts
+var list = [ 7, 42 ]
+var [ a = 1, b = 2, c = 3, d ] = list
+a === 7
+b === 42
+c === 3
+d === undefined
+```
+
+- Module
+```
+//lib/foo.js
+export function foo(x, y) {return x+y;}
+
+//someApp.js
+import * as api from "lib/foo"
+console.log(api.foo(1,2));
+
+//or
+import {foo} from "lib/foo"
+```
+
+- Class
+
+class definition
+```ts
+class Shape {
+  constructor (id, x, y) {
+    this.id = id;
+    this.move(x, y);
+  },
+  move (x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+```
+
+class inheritance
+```ts
+class Rectangle extends Shape {
+  constructor(id, x, y, width, height) {
+    super(id, x, y);
+    this.width = width;
+    this.height = height;
+  }
+}
+```
+
+basic class access: `super.xxx;`
+```ts
+class Shape {
+    …
+    toString () {
+        return `Shape(${this.id})`
+    }
+}
+class Rectangle extends Shape {
+    constructor (id, x, y, width, height) {
+        super(id, x, y)
+        …
+    }
+    toString () {
+        return "Rectangle > " + super.toString()
+    }
+}
+class Circle extends Shape {
+    constructor (id, x, y, radius) {
+        super(id, x, y)
+        …
+    }
+    toString () {
+        return "Circle > " + super.toString()
+    }
+}
+```
+
+static members: Static method calls are made directly on the class and are not callable on instances of the class. Static methods are often used to create utility functions.
+```ts
+class xxx {
+  constructor() {
+
+  }
+
+  static xxx() {
+
+  }
+}
+```
+
+getter and setter:
+
+```ts
+class Rectangle {
+    constructor (width, height) {
+        this._width  = width
+        this._height = height
+    }
+    set width  (width)  { this._width = width               }
+    get width  ()       { return this._width                }
+    set height (height) { this._height = height             }
+    get height ()       { return this._height               }
+    get area   ()       { return this._width * this._height }
+}
+
+```
+
+- Promise
+
+```ts
+return new Promise((resolve, reject) => {
+  //...
+});
+```
+
+- New Built-In Methods
+
+number truncation
+```ts
+Math.trunc(42.7); // 42
+Math.trunc(0.1); //0
+Math.trunc(-0.1); //-0
+```
+
+number comparison:  `Number.EPSILON` property represents the smallest positive value
+```ts
+console.log(0.1 + 0.2 === 0.3) // false
+console.log(Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON) // true
+```
+
+number safty checking
+```ts
+Number.isSafeInteger(42) === true
+Number.isSafeInteger(9007199254740992) === false
+Number.isSafeInteger(Infinity) === false
+```
+
+array element finding
+```ts
+[1,2,3,4].find(x => x > 3) //4
+[1,2,3,4].findIndex(x => x > 3)//3
+```
+
+string repeating
+```ts
+"foo".repeat(2); //"foofoofoo"
+```
+
+string searching
+```ts
+"hello".startsWith("ello", 1) // true
+"hello".endsWith("hell", 4)   // true
+"hello".includes("ell")       // true
+"hello".includes("ell", 1)    // true
+"hello".includes("ell", 2)    // false
 ```
