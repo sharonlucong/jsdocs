@@ -154,6 +154,22 @@ c === 3
 d === undefined
 ```
 
+Rename:
+```ts
+/*
+wes: {
+  links: {
+    social: {
+      twitter: 'https://twitter.com/wesbos',
+      facebook: 'https://facebook.com/wesbos.developer',
+    }
+  }
+}
+*/
+
+const { twitter: tweet, facebook: fb } = wes.links.social; // tweet === wes.links.social.twitter; fb === wes.links.social.facebook
+```
+
 - Module
 ```
 //lib/foo.js
@@ -254,11 +270,20 @@ class Rectangle {
 
 - Promise
 
+Definition: A Promise is a proxy for a value not necessarily known when the promise is created. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future (receiver of the future value)
+
+Syntax: `new Promise( /* executor */ function(resolve, reject) { ... } );`
+
+Executor: A function that is passed with the arguments resolve and reject. The executor function is executed immediately by the Promise implementation, passing resolve and reject functions
+
+
 ```ts
 return new Promise((resolve, reject) => {
   //...
 });
 ```
+
+**Deferred Object**: an object that can create a promise and change its state to `resolved` or `rejected`. It is used when you are the producer of the value.
 
 - New Built-In Methods
 
