@@ -326,3 +326,6 @@ string searching
 "hello".includes("ell", 1)    // true
 "hello".includes("ell", 2)    // false
 ```
+
+
+[Reference] (https://webapplog.com/es6/)
