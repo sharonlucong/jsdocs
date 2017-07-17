@@ -67,7 +67,7 @@ Time Complexity:
 
 `best`: O(n)
 
-`worst`: O(n*n)
+`worst`: O(n^2)
 
 ### Advanced sort
 
@@ -111,3 +111,55 @@ function merge(left, right) {
 ```
 
 Time Complexity: O(n*log(n))
+
+#### Quick Sort
+
+Pick a pivot and put all the items smaller than the pivot value to the left and larget than the pivot value to the right.
+
+Repeat the above step for both left and right side of the pivot.
+
+```ts
+// select the pivot as the last element in array
+
+function quickSort(arr, left, right) {
+  if (left < right) {
+    var pivot = arr[right];
+    var pivotIndex = partition(arr, pivot, left, right);
+    quickSort(arr, left, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, right);
+  }
+
+  return arr;
+}
+
+function partition(arr, pivot, left, right) {
+  var partitionIndex = left;
+
+  var i = left;
+  while(i < right) {
+    if (arr[i] < pivot) {
+      swap(arr, i, partitionIndex);
+      partitionIndex++;
+    }
+    i++;
+  }
+
+  swap(arr, partitionIndex, right);
+
+  return partitionIndex;
+}
+
+function swap(arr, i, j) {
+  var temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+```
+
+Time Complexity:
+
+`Best`: O(n*log(n))
+`Worst`: O(n^2)
+
+#### Heap Sort
