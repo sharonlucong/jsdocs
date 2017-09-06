@@ -318,4 +318,9 @@ module.exports = {
 };
 ```
 
+大部分引用自：
+
+作者：zhangwang
+链接：http://www.jianshu.com/p/42e11515c10f
+
 [Ref](http://www.jianshu.com/p/42e11515c10f)
